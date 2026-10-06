@@ -1,5 +1,12 @@
 import fs from 'node:fs/promises';import path from 'node:path';import {randomUUID} from 'node:crypto';
 const text=(v,max=3000)=>{if(typeof v!=='string'||!v.trim()||v.length>max)throw Error('Metin alanlarını kontrol edin.');return v.trim()};
+export function reportFields(input){
+ const optional=(v,max=3000)=>v==null||v===''?'':text(v,max);
+ function rows(value,count,label){const raw=optional(value);if(!raw)return [];const lines=raw.split('\n').filter(l=>l.trim());if(lines.length>12)throw Error(label+': en fazla 12 satır ekleyin.');return lines.map(line=>{const cells=line.split('|');if(cells.length!==count)throw Error(label+': her satırda '+count+' alanı | ile ayırın.');return cells.map(c=>text(c,200));});}
+ const stats=rows(input.stats,3,'Sayısal kartlar'),periodA=optional(input.comparisonPeriodA,150),periodB=optional(input.comparisonPeriodB,150),comparisonRows=rows(input.comparisonRows,3,'Dönem karşılaştırması');
+ let comparison;if(periodA||periodB||comparisonRows.length){if(!periodA||!periodB||!comparisonRows.length)throw Error('Karşılaştırma için iki dönemi ve en az bir ölçüm satırını doldurun.');comparison={periods:[periodA,periodB],rows:comparisonRows,note:optional(input.comparisonNote)};}
+ return {stats,note:optional(input.note),extra:optional(input.extra),...(comparison?{comparison}:{})};
+}
 export async function saveEntry(root,input){
  const file=path.join(root,'src/data/panel-content.json');let data;try{data=JSON.parse(await fs.readFile(file,'utf8'))}catch(e){if(e.code!=='ENOENT')throw e;data={projects:[],logos:[]}}
  const created=[];
@@ -7,9 +14,10 @@ export async function saveEntry(root,input){
  try{if(input.type==='logo'){data.logos.push({name:text(input.name,100),category:text(input.category,100),image:await image(input.image)});}else if(input.type==='project'){
  const slug=text(input.slug,100);if(!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)||slug==='taslak')throw Error('URL adı küçük harf, sayı ve tire içermeli.');const shipped=JSON.parse(await fs.readFile(path.join(root,'dist/assets/content.json')));if(shipped.projects.some(p=>p.slug===slug))throw Error('Bu URL adı zaten kullanılıyor.');if(!['web','seo','commerce','design'].includes(input.filter))throw Error('Kategori seçin.');
  const work=(input.work||'').split('\n').filter(Boolean).map(line=>{const i=line.indexOf('|');if(i<1)throw Error('Her çalışma satırını Başlık | Açıklama şeklinde yazın.');return[text(line.slice(0,i),150),text(line.slice(i+1),1500)]});if(!work.length||work.length>12)throw Error('1–12 çalışma satırı ekleyin.');
+ const reports=reportFields(input);
  const cover=await image(input.cover),logo=await image(input.logo),gallery=[];for(const g of input.gallery||[]){if(gallery.length>=8)throw Error('En fazla 8 galeri görseli.');gallery.push([await image(g.image),text(g.caption,150)]);}
  let site='';if(input.site){const url=new URL(input.site);if(url.protocol!=='https:')throw Error('Site bağlantısı https ile başlamalı.');site=url.href;}
- data.projects.push({id:'P'+(data.projects.length+1),slug,brand:text(input.brand,100),title:text(input.title,150),filter:input.filter,category:{web:'Web & AI',seo:'SEO',commerce:'E-ticaret',design:'Marka & tasarım'}[input.filter],period:text(input.period,150),summary:text(input.summary),goal:text(input.goal),role:text(input.role),work,stats:[],note:'',tone:input.filter==='web'?'fashion':'commerce',site,cover,logo,gallery});
+ data.projects.push({id:'P'+(data.projects.length+1),slug,brand:text(input.brand,100),title:text(input.title,150),filter:input.filter,category:{web:'Web & AI',seo:'SEO',commerce:'E-ticaret',design:'Marka & tasarım'}[input.filter],period:text(input.period,150),summary:text(input.summary),goal:text(input.goal),role:text(input.role),work,...reports,tone:input.filter==='web'?'fashion':'commerce',site,cover,logo,gallery});
  }else throw Error('Kayıt türü geçersiz.');
  await fs.writeFile(file+'.tmp',JSON.stringify(data,null,2));await fs.rename(file+'.tmp',file);return data;
  }catch(e){for(const name of created)await fs.unlink(path.join(root,'src/media',name)).catch(()=>{});throw e;}
