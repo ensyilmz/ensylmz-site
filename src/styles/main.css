@@ -21,3 +21,6 @@
 .marquee-star{width:16px;height:16px;vertical-align:middle;color:#ff7049}
 .panel-reports{border:1px solid var(--line);padding:20px;min-width:0}.panel-reports legend{padding:0 8px}.panel-reports label{display:block;margin-top:18px}.panel-reports p{font-size:13px;color:var(--muted)}
 .footer-bottom>div{flex-wrap:wrap;justify-content:center}
+/* Draw separators without font glyphs, including cached legacy markup. */
+.marquee b{position:relative;display:inline-block;width:16px;height:16px;font-size:0!important;color:transparent!important;vertical-align:middle;background:linear-gradient(#ff7049,#ff7049) center/2px 16px no-repeat,linear-gradient(#ff7049,#ff7049) center/16px 2px no-repeat}
+.marquee b svg{display:none!important}.marquee b:before,.marquee b:after{content:'';position:absolute;left:7px;top:0;width:2px;height:16px;background:#ff7049;transform:rotate(45deg)}.marquee b:after{transform:rotate(-45deg)}
