@@ -1,3 +1,17 @@
+Güncel müzik: Kullanıcının sağladığı Space Ambient (leberch) küp bölümünde başlar, çalışmalar boyunca kesilmeden aynı konumdan devam eder ve bölüm çıkışında söner. Ses kapatma korunur; astronotla yukarı dönüş sessizdir. Lisans kaydı src/media/space-ambient.LICENSE.md içindedir. Önceki sentez seslerine ilişkin aşağıdaki notlar eski sürümlere aittir.
+## Son ses ve geçiş düzeltmeleri
+Küp sesi vurmalı notalar yerine hareketle akan yüksek enerji katmanları, hafif hava ve kısa yankıyla yenilendi. Footer roketi yukarı dönerken küp sesi devre dışıdır. Eski kaydırma çubuğu sayfanın ilk çiziminden itibaren gizlenir; uygulama kodu 1,4 saniye geciktirilerek üç sayfada doğrulandı. JavaScript kapalıysa doğal çubuk geri gelir. Footer dönüşü masaüstü ve mobilde tam tepeye ulaşır.
+
+## Köşe astronotu ve özel yörünge kontrolü
+Çalışmalar bölümündeki kart üstü astronot ve eski giriş/çıkış uçuşları kaldırıldı. Bölüm boyunca sol altta kafa, kısa boyun ve kenarı tutan eller görünür; mouse ve dokunma bakışı yönlendirir. Küp sesi sürekli gürültü yerine kısa harmonik tonlar ve yankıyla yenilendi. Sağ tarafta doğal kaydırma çubuğunun yerini sürüklenebilir roketli yörünge kontrolü aldı; tıklama, ok tuşları, Home/End desteklenir. JavaScript çalışmazsa doğal çubuk korunur.
+Masaüstü/mobil görünüm, eski astronotun gizlenmesi, kafa takibi, kaydırma kontrolü ve sesin sessize alınması doğrulandı.
+
+## Uzaysal ses ve kaydırma rayı
+Küp dönüş sesi kaydırma hızına göre yükselir, durunca söner ve mevcut ses kapatma düğmesine uyar. İlk kullanıcı etkileşimi ses bağlamını açar. Giriş sahnesinde Sesli geçiş düğmesi yaklaşma/portal sesi açar; çıkışta ses söner. Hareket azaltma tercihinde küp sesi kapalıdır. Kaydırma çubuğu ışıklı turuncu raydır; doğal fare/klavye kaydırması korunur, görünüm tarayıcı desteğine göre sadeleşebilir.
+
+## Uzaysal panel girişi ve erişim anahtarı
+Panel açılışında yıldızlı giriş kapısı görünür; Giriş yap ile portal geçişi tamamlanır. Bu düğme görsel giriş geçişidir. GitHub gönderim yetkisini erişim anahtarı doğrular. Anahtarsız ve biçimi geçersiz gönderim sunucuda reddedilir. Gerçek anahtarla gönderimi panelden siz tamamlayın.
+
 # ensylmz · Sekizinci sürüm
 
 Enes Yılmaz için yerel portföy. Varsayılan koyu tema, açık tema düğmesi, mobil menü, hareketli yörünge görseli ve ayrı proje sayfaları.
@@ -6,7 +20,7 @@ Enes Yılmaz için yerel portföy. Varsayılan koyu tema, açık tema düğmesi,
 
 BASLAT çalışırken http://127.0.0.1:4173/panel/ adresini açın. Referans formundaki marka, başlık, URL adı, amaç, kapsam, çalışma satırları, kapak/logo ve isteğe bağlı galeri ile mevcut projelerle aynı tasarımda bağımsız sayfa oluşturulur. Logo formu logoyu Çalışmalar listesine ekler. Kayıtlar src/data/panel-content.json ve src/media içinde kalır; tarayıcı kapansa da korunur. Bu sürüm yeni kayıt ekler; mevcut kayıt düzenleme/silme ekranı henüz yoktur. Eski tarayıcı taslakları kendiliğinden aktarılmaz.
 
-Panelde GitHub’a gönder düğmesi yalnız bu site klasöründeki kaynakları ensyilmz/ensylmz-site deposuna gönderir. Şifre veya token panelde tutulmaz; bilgisayardaki Git kimlik yöneticisi kullanılır. Gönderim başarısız olsa da kayıtlar korunur. Zorla gönderim yapılmaz.
+Panelde GitHub’a gönder düğmesi yalnız bu site klasöründeki kaynakları ensyilmz/ensylmz-site deposuna gönderir. Her gönderimde ensyilmz hesabına ait fine-grained GitHub anahtarı zorunludur. Yalnız ensylmz-site deposu için Contents: Read and write verin. Anahtar dosyaya, localStorage veya GitHub deposuna yazılmaz; gönderim için bellekte kullanılır. Kayıtlı Git oturumu bu kontrolü atlayamaz. Gönderim başarısız olsa da kayıtlar korunur. Zorla gönderim yapılmaz.
 
 Bu depo için GitHub Pages, GitHub Actions ile etkinleştirildi. Başka bir depoya taşırsanız Settings > Pages > Source alanında GitHub Actions seçin. .github/workflows/pages.yml her main gönderiminde siteyi oluşturur ve yayımlar. Beklenen adres https://ensyilmz.github.io/ensylmz-site/ olur; workflow başarıyla bitmeden yayında olduğu varsayılmaz.
 
@@ -143,6 +157,11 @@ ensylmz/
 İkinci sürüm: 434 iç bağlantı/varlık; önceki 51 tarayıcı kontrolüne ek olarak giriş, astronot, ses alanı, renklenme, ışık geçişi ve mobil hareket davranışlarını kapsayan 26 kontrol geçti. Görüntüler `qa/v2/` klasöründe. Birinci sürüm ZIP’i ve kaynak yedeği proje klasörünün yanında korunur.
 
 Üçüncü sürüm: 434 iç bağlantı/varlık kontrolü, 51 mevcut tarayıcı kontrolü ve 25 yeni sahne kontrolü geçti. Yeni görüntüler ve rapor qa/v3/ klasöründe. V2 ZIP’i ve ensylmz-v02-source kaynak yedeği korunur.
+
+
+
+
+
 
 
 

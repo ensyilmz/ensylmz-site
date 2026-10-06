@@ -1,3 +1,5 @@
+import {spaceRail} from './space-controls.js';
+spaceRail();
 const $=(q,root=document)=>root.querySelector(q);
 const $$=(q,root=document)=>[...root.querySelectorAll(q)];
 const safe=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -59,4 +61,5 @@ if(adminStatus){const projectForm=$('#project-draft-form'),logoForm=$('#logo-dra
  logoForm.addEventListener('submit',async e=>{e.preventDefault();const b=$('button[type=submit]',logoForm);b.disabled=true;try{const f=new FormData(logoForm),d=readDrafts();d.logos.push({name:f.get('name').trim(),category:f.get('category').trim(),image:await fileData(f.get('image'))});saveDrafts(d);logoForm.reset();list();showStatus('Logo taslağı kaydedildi. Çalışmalar sayfasında önizleyebilirsiniz.');}catch(err){showStatus(err.name==='QuotaExceededError'?'Tarayıcı alanı doldu. Daha küçük bir görsel kullanın.':err.message);}finally{b.disabled=false;}});
  $('#export-drafts').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(readDrafts(),null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='ensylmz-taslaklar-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);showStatus('JSON yedeği indirildi.');});
  $('#import-drafts').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>10*1024*1024)throw Error('Yedek en fazla 10 MB olabilir.');const imported=validateDrafts(JSON.parse(await file.text()));const existing=readDrafts();const known=new Set(existing.projects.map(p=>p.slug));const merged={projects:[...existing.projects,...imported.projects.filter(p=>!known.has(p.slug))],logos:[...existing.logos,...imported.logos.filter(l=>!existing.logos.some(x=>x.name===l.name&&x.image===l.image))]};saveDrafts(merged);list();showStatus('Yedek mevcut taslaklarla birleştirildi.');}catch(err){showStatus(err.name==='QuotaExceededError'?'Tarayıcı alanı doldu. Daha küçük bir yedek kullanın.':'Yedek yüklenemedi: '+err.message);}e.target.value='';});}
+
 

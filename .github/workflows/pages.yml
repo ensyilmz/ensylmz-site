@@ -21,10 +21,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: node scripts/build.mjs
       - run: node scripts/check.mjs
       - run: node scripts/pages-base.mjs
-      - uses: actions/configure-pages@v5
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist

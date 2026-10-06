@@ -9,6 +9,6 @@ export async function panelApi(req,res,root,port){
  if(busy){send(409,{error:'Önce devam eden kaydın bitmesini bekleyin.'});return true;}busy=true;
  try{let body='',size=0;for await(const chunk of req){size+=chunk.length;if(size>24*1024*1024)throw Error('Toplam yükleme 24 MB sınırını aşıyor.');body+=chunk;}
  if(req.url==='/api/panel'){const file=path.join(root,'src/data/panel-content.json');const previous=await fs.readFile(file).catch(()=>null);await saveEntry(root,JSON.parse(body));try{await run(process.execPath,['scripts/build.mjs'],{cwd:root,windowsHide:true});}catch(e){if(previous)await fs.writeFile(file,previous);else await fs.unlink(file);throw Error('Sayfa oluşturulamadı; içerik kaydı geri alındı.');}send(200,{saved:true});}
- else if(req.url==='/api/publish'){await publish();send(200,{published:true});}else send(404,{error:'İşlem bulunamadı.'});
+ else if(req.url==='/api/publish'){const input=JSON.parse(body);await publish(input.token);send(200,{published:true});}else send(404,{error:'İşlem bulunamadı.'});
  }catch(e){send(400,{error:e.message})}finally{busy=false;}return true;
 }

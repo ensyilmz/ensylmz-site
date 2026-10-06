@@ -21,10 +21,7 @@ export function setupChoreography(actor,reduced){
  function target(t){const w=innerWidth,h=innerHeight,size=w<700?64:104,height=size*220/180;actor.style.width=size+'px';actor.style.height=height+'px';const hr=$('.site-header').getBoundingClientRect(),pr=projects.getBoundingClientRect(),ar=about.getBoundingClientRect(),ir=identity.getBoundingClientRect(),fr=footer.getBoundingClientRect();
   let key='hidden',tx=x,ty=y,pose='float',visible=false;
   if(scrollY<Math.max(100,hero.offsetHeight*.45)){key='hero';tx=w<700?w*.48-size*.5:w*.29;ty=hr.bottom-height*.66;pose='sit';visible=hr.bottom>0;}
-  else if(pr.top<h*.82&&pr.bottom>h*.25){const center=h*.5;let index=cards.findIndex(c=>{const r=c.getBoundingClientRect();return r.top<center&&r.bottom>center;});if(index<0)index=pr.top>0?0:cards.length-1;
-   if(index<2){const cr=cards[index].getBoundingClientRect(),image=cards[index].querySelector('.project-visual').getBoundingClientRect();key='projects';tx=clamp(image.right-size-12,10,w-size-10);ty=image.bottom-height*.85;pose='inspect';visible=ty>-height&&ty<h;prevProject=index;}
-   else{key='projects-exit';visible=false;}
-  }
+  else if(pr.top<h*.82&&pr.bottom>h*.25){key='services';visible=false;}
   if(ar.top<h*.7&&ar.bottom>h*.28){const r=about.querySelector('.text-link').getBoundingClientRect();key='about';tx=clamp(r.right+12,15,w-size-15);ty=r.top+8;pose='look';visible=ar.top<innerHeight*.7&&ar.bottom>innerHeight*.28;}
   const sr=$('[data-scene=services]').getBoundingClientRect();if(sr.top<h*.65&&sr.bottom>h*.3){key='services';visible=false;}
   const first=tiles[0].getBoundingClientRect(),last=tiles[Math.min(3,tiles.length-1)].getBoundingClientRect();
@@ -32,12 +29,12 @@ export function setupChoreography(actor,reduced){
   if(fr.top<h*.9){key='contact';tx=w-size-(w<700?22:62);ty=fr.top-height*.75;pose='ready';visible=ty<h&&fr.bottom>0;}
   return{key,x:tx,y:ty,pose,visible,size,height};
  }
- function launch(){if(launching||reduced.matches){if(reduced.matches)window.scrollTo({top:0,behavior:'instant'});return;}story.reset();transition=null;launching={at:performance.now(),from:scrollY,x,y};actor.classList.add('rocket-active');actor.dataset.phase='launch';}
- function tick(t){if(disposed)return;if(reduced.matches){actor.style.opacity='0';return;}const dest=target(t);
+ function launch(){if(launching||reduced.matches){if(reduced.matches)window.scrollTo({top:0,behavior:'instant'});return;}story.reset();document.body.classList.add('astronaut-returning');transition=null;launching={at:performance.now(),from:scrollY,x,y};actor.classList.add('rocket-active');actor.dataset.phase='launch';}
+ function tick(t){if(disposed)return;if(reduced.matches){actor.style.opacity='0';return;}const dest=target(t);if(!launching&&document.body.classList.contains('peeking-projects')){transition=null;scene='services';story.cancel();actor.style.opacity='0';actor.classList.remove('rocket-active');return;}
   story.helpers(t,helpers);
   if(launching){const elapsed=t-launching.at;actor.dataset.scene='hero';setPose('rocket');
    if(elapsed<1500){const p=ease(clamp(elapsed/1500));window.scrollTo({top:launching.from*(1-p),behavior:'instant'});x=mix(launching.x,innerWidth<700?innerWidth*.48-dest.size*.5:innerWidth*.29,p);y=mix(launching.y,-dest.height*.35,p);actor.style.setProperty('--flight-angle',`${-8*Math.sin(p*Math.PI)}deg`);}
-   else{const z=elapsed-1500,r=$('.site-header').getBoundingClientRect(),land=r.bottom-dest.height*.66;if(!launching.hit){launching.hit=true;burst(x+dest.size*.5,6,0);actor.classList.remove('rocket-active');actor.classList.add('bonked');actor.dataset.phase='bonk';}x=innerWidth<700?innerWidth*.48-dest.size*.5:innerWidth*.29;if(z<430){y=mix(-dest.height*.35,land+10,ease(z/430));setPose('tumble');}else if(z<900){y=land+10;setPose('recover');}else if(z<1450){y=land-dest.height*.2;setPose('stand');}else{y=land;setPose('sit');}if(z>2000){launching=null;scene='hero';actor.classList.remove('bonked');actor.dataset.phase='idle';}}
+   else{const z=elapsed-1500,r=$('.site-header').getBoundingClientRect(),land=r.bottom-dest.height*.66;if(!launching.hit){window.scrollTo({top:0,behavior:'instant'});launching.hit=true;burst(x+dest.size*.5,6,0);actor.classList.remove('rocket-active');actor.classList.add('bonked');actor.dataset.phase='bonk';}x=innerWidth<700?innerWidth*.48-dest.size*.5:innerWidth*.29;if(z<430){y=mix(-dest.height*.35,land+10,ease(z/430));setPose('tumble');}else if(z<900){y=land+10;setPose('recover');}else if(z<1450){y=land-dest.height*.2;setPose('stand');}else{y=land;setPose('sit');}if(z>2000){launching=null;document.body.classList.remove('astronaut-returning');scene='hero';actor.classList.remove('bonked');actor.dataset.phase='idle';}}
    actor.style.opacity='1';actor.style.transform=`translate3d(${x}px,${y}px,0)`;return;
   }
   if(dest.key!==scene){const old=scene;story.cancel();scene=dest.key;actor.dataset.scene=['hero','projects','about','identity','contact'].includes(scene)?scene:scene.startsWith('projects')?'projects':scene.startsWith('identity')?'identity':'services';actor.setAttribute('aria-label',scene==='contact'?'Roketle sayfanın başına dön':'Astronota selam ver');actor.title=scene==='contact'?'Kalkış için tıkla ↑':'Selam, dünyalı!';
@@ -59,4 +56,7 @@ export function setupChoreography(actor,reduced){
  addEventListener('pageshow',()=>navigating=false);addEventListener('pagehide',e=>{if(!e.persisted)disposed=true;});
  return{tick,launch,interact:story.interact};
 }
+
+
+
 

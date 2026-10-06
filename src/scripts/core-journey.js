@@ -1,9 +1,10 @@
+import {coreSound} from './core-sound.js';
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n)),mix=(a,b,t)=>a+(b-a)*t;
 export function setupCoreJourney(reduced){
  const projects=document.querySelector('#secili-isler');
  const section=document.createElement('section');section.className='core-journey';section.id='core-journey';section.dataset.scene='core';section.setAttribute('aria-label','Tasarım, görünürlük ve operasyon yaklaşımım');
  section.innerHTML=`<div class="core-stage"><canvas class="core-canvas" aria-hidden="true"></canvas><div class="core-vignette" aria-hidden="true"></div><div class="core-top"><span>EY / DİJİTAL ÇEKİRDEK</span><a href="#secili-isler">Çalışmalara geç ↘</a></div><div class="core-copy"><div><span>00 / AYNI BÜTÜNÜN PARÇALARI</span><h2>Bir markayı<br>tek açıdan<br>ele almıyorum.</h2><p>Tasarım, görünürlük ve operasyon.<br>Birlikte çalışan üç parça.</p></div><div><span>01 / TASARIM</span><h2>Nasıl göründüğünü<br><em>tasarlıyorum.</em></h2><p>Marka dili, görsel üretim ve alışveriş deneyimi.<br>Rokka’daki çalışmanın parçaları.</p></div><div><span>02 / GÖRÜNÜRLÜK</span><h2>Nasıl bulunduğuyla<br><em>ilgileniyorum.</em></h2><p>Ürün, kategori ve içerikten arama kanallarına.<br>Mersan ve Demirsan’daki çalışmalar.</p></div><div><span>03 / OPERASYON</span><h2>Nasıl çalıştığını da<br><em>ele alıyorum.</em></h2><p>Ürün sunumu, pazaryeri ve rapor takibi.<br>Giyimyol’daki operasyon çalışması.</p></div><div><span>04 / ŞİMDİ YAKINDAN BAKALIM</span><h2>Fikirden<br><em>yapılan işe.</em></h2><p>Bu yaklaşımın gerçek projelerdeki karşılığı.</p></div></div><div class="core-window" aria-hidden="true"><img src="/assets/media/rokka-tasarim-form-beden-bulucu.png" alt=""><img src="/assets/media/mersan-search-console-performans.png" alt=""><img src="/assets/media/giyimyol-trendyol-siparis-2026.png" alt=""></div><div class="core-bottom"><span>KAYDIR / AÇIYI DEĞİŞTİR</span><div class="core-steps"><i></i><i></i><i></i><i></i><i></i></div><span class="core-coordinate">01 / 05</span></div></div>`;
- projects.before(section);
+ projects.before(section);const updateSound=coreSound(section,reduced);
  const cube=document.createElement('div');cube.className='project-cube';cube.setAttribute('aria-hidden','true');
  const textures=['rokka-tasarim-anasayfa-hero.png','mersan-search-console-performans.png','giyimyol-trendyol-siparis-2026.png','demirsan-sosyal-90-gun.png','rokka-tasarim-form-beden-bulucu.png','mersan-merchant-genel-bakis.png'];
  cube.innerHTML=textures.map((src,i)=>'<div class="cube-face face-'+i+'"><img src="/assets/media/'+src+'" alt=""></div>').join('');section.querySelector('.core-stage').append(cube);
@@ -13,7 +14,7 @@ export function setupCoreJourney(reduced){
  function resize(){width=innerWidth;height=innerHeight;const dpr=Math.min(devicePixelRatio,1.5);canvas.width=width*dpr;canvas.height=height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
  resize();addEventListener('resize',resize);section.addEventListener('pointermove',e=>{mx=(e.clientX/width-.5)*.12;my=(e.clientY/height-.5)*.1;});
  function rotate(v,ax,ay,az){let[x,y,z]=v;[y,z]=[y*Math.cos(ax)-z*Math.sin(ax),y*Math.sin(ax)+z*Math.cos(ax)];[x,z]=[x*Math.cos(ay)+z*Math.sin(ay),-x*Math.sin(ay)+z*Math.cos(ay)];return[x*Math.cos(az)-y*Math.sin(az),x*Math.sin(az)+y*Math.cos(az),z];}
- function render(t){if(dead)return;raf=requestAnimationFrame(render);if(t-last<30)return;const dt=Math.min((t-last)/1000,.06);last=t;const r=section.getBoundingClientRect();if(r.bottom<0||r.top>height)return;const raw=clamp(-r.top/Math.max(1,section.offsetHeight-height));progress=reduced.matches?0:mix(progress,raw,.18);const p=progress,phase=Math.min(4,Math.floor(p*5));section.dataset.phase=phase;
+ function render(t){if(dead)return;raf=requestAnimationFrame(render);if(t-last<30)return;const dt=Math.min((t-last)/1000,.06);last=t;const r=section.getBoundingClientRect();if(r.bottom<0||r.top>height){updateSound(progress,false);return;}const raw=clamp(-r.top/Math.max(1,section.offsetHeight-height));progress=reduced.matches?0:mix(progress,raw,.18);const p=progress,phase=Math.min(4,Math.floor(p*5));section.dataset.phase=phase;updateSound(p,true);
   copies.forEach((el,i)=>{const visibility=reduced.matches?(i===0?1:0):clamp(1-Math.abs(p*5-(i+.5))*2);el.style.opacity=visibility;el.style.transform=`translateY(${(1-visibility)*24}px)`;el.setAttribute('aria-hidden',visibility>.15?'false':'true');});
   if(p<.04){copies[0].style.opacity=1;copies[0].setAttribute('aria-hidden','false');}if(p>.94){copies[4].style.opacity=1;copies[4].setAttribute('aria-hidden','false');}
   section.querySelector('.core-coordinate').textContent=String(phase+1).padStart(2,'0')+' / 05';section.querySelectorAll('.core-steps i').forEach((el,i)=>el.classList.toggle('active',i===phase));
@@ -43,5 +44,6 @@ function setupProjectPortals(reduced){
    if(reduced.matches)visual.classList.add('portal-still');
   }});
 }
+
 
 
