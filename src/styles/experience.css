@@ -53,7 +53,7 @@ html.theme-changing::view-transition-group(root){animation:none}
 .experience-v3 #astronaut[data-pose=stand] .astro-body{animation:stand-up .55s cubic-bezier(.2,.9,.4,1.3) both}
 .experience-v3 #astronaut[data-pose=ready] .right-arm{animation:beckon 2s ease-in-out infinite}
 .experience-v3 #astronaut[data-pose=ready]:hover .jet-fire{opacity:.8;animation:thruster .2s infinite alternate}
-.experience-v3 #astronaut[data-pose=ready]::after{content:'KALKIŞ ↑';position:absolute;bottom:-20px;left:0;width:100%;font-size:9px;letter-spacing:.12em;color:var(--text);text-align:center}
+.experience-v3 #astronaut[data-pose=ready]::after{content:'KALKIŞ';position:absolute;bottom:-20px;left:0;width:100%;font-size:9px;letter-spacing:.12em;color:var(--text);text-align:center}
 .visor-eyes{animation:blink-visor 6s infinite;transform-origin:90px 56px;filter:drop-shadow(0 0 3px #aceaff)}
 .experience-v3 #astronaut.bonked .visor-eyes{animation:dizzy-eyes .25s alternate 6}
 .experience-v3 #astronaut.saluting .right-arm{animation:astro-wave .3s ease-in-out 4 alternate}
@@ -239,3 +239,16 @@ html.custom-space-scroll{scrollbar-width:none}html.custom-space-scroll::-webkit-
 @media(max-width:700px){.window-astronaut{width:94px;height:63px}.space-scroll-rail{right:2px;width:18px;top:34vh;height:32vh}.rail-track{width:18px}.rail-energy{left:8px}.rail-marker{left:5px}.rail-shuttle{left:-4px}.rail-orbit-label{font-size:6px}.rail-percent{font-size:8px}}
 @media(prefers-reduced-motion:reduce){.window-astronaut,.peek-head{transition:none}}
 .astronaut-returning.peeking-projects #astronaut{visibility:visible!important}.astronaut-returning .window-astronaut{transform:translateY(110%)}
+
+@media(max-width:767px){
+ .logo-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:100%;min-width:0}
+ .logo-tile,.logo-meta,.logo-image{min-width:0;max-width:100%}
+ .logo-meta>span:first-child,.logo-meta small{overflow-wrap:anywhere}
+ .experience-v2 .identity-section .logo-tile,.experience-v2 .logo-tile:hover{transform:none}
+ .logo-tile{touch-action:pan-y}
+ .logo-tile[aria-pressed=false] img{transform:none!important;opacity:.85!important;filter:grayscale(1) invert(1)!important;mix-blend-mode:screen!important;background:transparent!important}
+ :root[data-theme=light] .logo-tile[aria-pressed=false] img{filter:grayscale(1) contrast(1.2)!important;mix-blend-mode:multiply!important;opacity:.9!important}
+ .logo-tile[aria-pressed=false] img[src*="hodip-orijinal"]{filter:grayscale(1)!important}
+ :root[data-theme=light] .logo-tile[aria-pressed=false] img[src*="hodip-orijinal"]{filter:brightness(0)!important}
+ .logo-tile[aria-pressed=false]{background:transparent}
+}

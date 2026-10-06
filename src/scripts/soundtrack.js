@@ -1,4 +1,5 @@
 export function setupSound(){
+ if(matchMedia('(max-width: 767px)').matches)return {setArea(){},dispose(){}};
  const audio=new Audio('/assets/media/space-ambient.mp3');audio.preload='metadata';audio.loop=true;audio.volume=0;audio.id='journey-soundtrack';audio.hidden=true;document.body.append(audio);
  const button=document.createElement('button');button.className='orbit-sound';button.type='button';button.innerHTML='<span class="sound-core"><span class="sound-ring"></span><span class="sound-wave">'+Array.from({length:7},(_,i)=>'<i style="--bar:'+i+'"></i>').join('')+'</span><span class="sound-satellite"></span></span><span class="sound-label">SES HAZIR</span>';document.body.append(button);
  let armed=true,inside=false,returning=false,target=0,raf,playingAttempt=false,disposed=false,last=performance.now();
