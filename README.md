@@ -8,7 +8,7 @@ BASLAT çalışırken http://127.0.0.1:4173/panel/ adresini açın. Referans for
 
 Panelde GitHub’a gönder düğmesi yalnız bu site klasöründeki kaynakları ensyilmz/ensylmz-site deposuna gönderir. Şifre veya token panelde tutulmaz; bilgisayardaki Git kimlik yöneticisi kullanılır. Gönderim başarısız olsa da kayıtlar korunur. Zorla gönderim yapılmaz.
 
-İlk yayında GitHub deposu Settings > Pages > Source alanında GitHub Actions seçilmelidir. .github/workflows/pages.yml her main gönderiminde siteyi oluşturur ve yayımlar. Beklenen adres https://ensyilmz.github.io/ensylmz-site/ olur; workflow başarıyla bitmeden yayında olduğu varsayılmaz.
+Bu depo için GitHub Pages, GitHub Actions ile etkinleştirildi. Başka bir depoya taşırsanız Settings > Pages > Source alanında GitHub Actions seçin. .github/workflows/pages.yml her main gönderiminde siteyi oluşturur ve yayımlar. Beklenen adres https://ensyilmz.github.io/ensylmz-site/ olur; workflow başarıyla bitmeden yayında olduğu varsayılmaz.
 
 Canlı site statiktir. İçerik yönetimi bilgisayarınızdaki BASLAT panelinden yapılır; herkese açık sitedeki panel dosya yazamaz. ZIP yedeğini saklayın. En güncel kayıtları içeren klasörü kullanın; eski paket farklı kayıtlar içerir.
 
@@ -143,6 +143,7 @@ ensylmz/
 İkinci sürüm: 434 iç bağlantı/varlık; önceki 51 tarayıcı kontrolüne ek olarak giriş, astronot, ses alanı, renklenme, ışık geçişi ve mobil hareket davranışlarını kapsayan 26 kontrol geçti. Görüntüler `qa/v2/` klasöründe. Birinci sürüm ZIP’i ve kaynak yedeği proje klasörünün yanında korunur.
 
 Üçüncü sürüm: 434 iç bağlantı/varlık kontrolü, 51 mevcut tarayıcı kontrolü ve 25 yeni sahne kontrolü geçti. Yeni görüntüler ve rapor qa/v3/ klasöründe. V2 ZIP’i ve ensylmz-v02-source kaynak yedeği korunur.
+
 
 
 
