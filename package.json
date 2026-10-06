@@ -1,0 +1,11 @@
+{
+  "name": "ensylmz-portfolio",
+  "private": true,
+  "version": "0.8.0",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs"
+  }
+}

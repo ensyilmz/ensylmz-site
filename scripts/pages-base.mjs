@@ -1,0 +1,2 @@
+import fs from 'node:fs/promises';import path from 'node:path';
+const base='/ensylmz-site';async function visit(dir){for(const entry of await fs.readdir(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory())await visit(file);else if(/\.(html|js|css)$/.test(file)){let s=await fs.readFile(file,'utf8');s=s.replace(/(["'`(=])\/(assets|projeler|referanslar|calismalar|hakkimda|hizmetler|iletisim|panel|gizlilik|favicon\.svg)(?=[/"'`?)])/g,'$1'+base+'/$2');s=s.replace(/href="\/"/g,'href="'+base+'/"');await fs.writeFile(file,s);}}}await visit('dist');
