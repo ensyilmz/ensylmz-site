@@ -20,3 +20,4 @@
 .direction-icon{display:inline-block;width:1em;height:1em;vertical-align:-.12em;flex-shrink:0;pointer-events:none}@media(max-width:767px){.orbit-sound,.arrival-sound{display:none!important}}
 .marquee-star{width:16px;height:16px;vertical-align:middle;color:#ff7049}
 .panel-reports{border:1px solid var(--line);padding:20px;min-width:0}.panel-reports legend{padding:0 8px}.panel-reports label{display:block;margin-top:18px}.panel-reports p{font-size:13px;color:var(--muted)}
+.footer-bottom>div{flex-wrap:wrap;justify-content:center}
