@@ -25,8 +25,9 @@ export function characterScenes(actor,effects,reduced){
   else{about=null;return null;}return{x,y,pose};
  }
  function helpers(t,list){const area=document.querySelector('[data-scene=services]').getBoundingClientRect();if(servicesAt===null&&area.top<innerHeight*.7&&area.bottom>0)servicesAt=t;
-  for(const {row,helper,i} of list){const elapsed=servicesAt===null?-1:t-servicesAt-i*550,p=clamp(elapsed/1250),title=row.querySelector('h3');row.dataset.delivery=p===1?'done':elapsed>=0?'pushing':'waiting';row.style.setProperty('--push',p);row.style.setProperty('--push-distance',`${(1-p)*(i%2?1:-1)*Math.max(350,innerWidth*.8)}px`);row.classList.toggle('pushing',elapsed>=0&&p<1);const rr=row.getBoundingClientRect(),tr=title.getBoundingClientRect();helper.style.left=(i%2?tr.right-rr.left:tr.left-rr.left-56)+'px';helper.style.right='auto';}
+  for(const {row,helper,i} of list){const elapsed=servicesAt===null?-1:t-servicesAt-i*550,p=clamp(elapsed/1250),title=row.querySelector('h3');row.dataset.delivery=p===1?'done':elapsed>=0?'pushing':'waiting';row.style.setProperty('--push',p);row.style.setProperty('--push-distance',`${(1-p)*(i%2?1:-1)*Math.max(350,innerWidth*.8)}px`);row.classList.toggle('pushing',elapsed>=0&&p<1);}
  }
  function cancel(){header=null;about=null;prop.classList.remove('visible');actor.classList.remove('firing');}
  return{ground,interact,headerFrame,startAbout,aboutFrame,helpers,cancel,get offset(){return offset;},reset(){offset=0;click=0;cancel();}};
 }
+

@@ -10,6 +10,15 @@ export const services = [
   {id:'04', title:'Tasarım & AI destekli üretim', text:'Logo, kampanya ve sosyal medya görselleri; AI destekli moda görselleri, video üretimi ve video düzenleme.', tags:['Photoshop · Illustrator','Logo & görsel tasarım','AI görsel / video']}
 ];
 export const projects = [
+  {id:'08',slug:'seminoks-teknik-katalog-ve-web-deneyimi',brand:'Seminoks',title:'Galeriden katalog dünyasına.',category:'Web deneyimi & teknik SEO',filter:'web',period:'Ekim 2026 · devam ediyor',logo:'seminoks-logo.png',cover:'seminoks-hero.png',tone:'commerce',site:'https://seminoks.com',
+   summary:'Teknik bilgileri galeri pencerelerinde kalan ürünleri, ayrı adresleri ve yönetilebilir içerikleri olan bir katalog yapısına dönüştürdüm. Mevcut WordPress sitesinde ürün ve kategori deneyimini, görsel dili ve mobil kullanımı birlikte yeniledim.',
+   goal:'Ürünlerin teknik bilgileriyle bulunabileceği, müşterinin ölçü ve model seçimini inceleyip teklif isteyebileceği bir katalog oluşturmak. Doğrudan çevrimiçi satış yerine ürün keşfi ve iletişime odaklanmak.',
+   role:'İhtiyaç analizi, tasarım yönü, WordPress ve Elementor uygulaması, ürün/kategori içeriklerinin hazırlanması, AI destekli görsel üretimi ve müşteri revizeleri. Özel katalog eklentisi ve etkileşim kodları AI desteğiyle geliştirildi; teknik SEO ve Search Console takibi yürütüldü.',
+   work:[['93 ürünlük yönetilebilir katalog','Galeri/popup yaklaşımından ayrı ürün adreslerine geçiş; ürün grupları, teknik tablo ve föyler, açıklama ve seçim rehberleri. Yeni içeriklerin WordPress panelinden yönetilmesi.'],['Kategori ve ürün deneyimi','Kategori hiyerarşisi, ürün kartları, mobil filtreler, teknik görsel büyütme ve WhatsApp üzerinden ölçü/adet ile teklif talebi.'],['Görsel dünya ve mobil tasarım','AI destekli masaüstü ve mobil banner kompozisyonları, üç kategoriye bağlı dokuz sahneli slider, header/menü, Boru ve Profil sayfaları, güven alanı ve iletişim paneli. Seminoks logosu mevcut marka varlığıdır; logo tasarımı bu iş kapsamında yapılmadı.'],['Teknik SEO temeli','Ürün/kategori metinleri ve meta alanları, Rank Math bağlantıları, site haritaları ve gerçek fiyat/değerlendirmesi olmayan katalog ürünlerinde uygun olmayan Product şemasının kaldırılması.']],
+   stats:[['93','Keşfedilen ürün URL’si','Ürün site haritası · son okuma 11 Ekim 2026'],['123','Keşfedilen site haritası URL’si','Search Console · site haritası dizini'],['36','Site genelinde indeksli sayfa','Sayfa dizine ekleme · güncelleme 9 Ekim 2026']],
+   note:'Çalışma henüz başlangıç aşamasında. Site haritasındaki keşif, indekslenme anlamına gelmez; 36 indeksli sayfa site genelinin toplamıdır, 93 ürünün tamamının indekslendiği iddia edilmez. Aynı raporda 130 indekslenmemiş URL görülür; nedenleri ayrıca değerlendirilmelidir. Rapor tarihleri farklıdır. Henüz uzun dönemli SEO, satış veya dönüşüm artışı sonucu bulunmuyor.',
+   extra:'Paylaşılan son 24 saatlik sayfa raporunda ana sayfa 5 tıklama, DIN 45° Dirsek, Altıköşe Dişli Kep 150 LBS ve DIN ISO 2037 Klemp Takımı ürün sayfaları birer tıklama almış. Bunlar erken görünürlük işaretleridir; yeni çalışmaların neden olduğu bir büyüme olarak sunulmaz.',
+   gallery:[['seminoks-hero.png','Masaüstü · ürün gruplarına bağlı banner sistemi'],['seminoks-mobile-hero.png','Mobil · ayrı kadraj ve kompakt menü'],['seminoks-product.png','Ürün sayfası · içerik ve iletişim deneyimi'],['seminoks-product-detail.png','Uzun ürün açıklaması ve seçim rehberi'],['seminoks-whatsapp.png','Mobil WhatsApp · ürün, ölçü ve teklif seçenekleri'],['seminoks-menu.png','Ürün grupları ve yenilenen mega menü'],['seminoks-sitemap.png','123 URL, 93 ürün · başarılı işlenen site haritaları'],['seminoks-index.png','Site geneli · 36 indeksli, 130 indekslenmemiş URL'],['seminoks-first-clicks.png','İlk görünürlük · seçili son 24 saat raporu']]},
   {id:'01', slug:'moda-icin-dijital-deneyim', brand:'Rokka Moda', title:'Bir markanın\ndijital duruşu.', category:'Web & AI üretim', filter:'web', period:'Yeni site · ilk ölçümler', logo:'rokka-orijinal.png', cover:'rokka-tasarim-anasayfa-hero.png', tone:'fashion', site:'https://rokkamoda.com',
    summary:'2023’te Trendyol üzerinden satışa başlayan Rokka’ya kendi e-ticaret sitesine geçmesini önerdim ve son bir ayda siteyi kurdum. Marka görsellerini, alışveriş arayüzünü ve müşterinin beden seçimini kolaylaştıran Rokka Form’u birlikte geliştirdim.',
    goal:'Pazaryerinde başlayan markaya kendi e-ticaret alanını oluşturmak; hangi bedeni seçeceğini bilemeyen müşterinin ölçülerine göre en yakın bedeni bulmasına yardımcı olmak. Seçim sürecini kolaylaştırarak satışları desteklemek hedeflendi.',
@@ -69,7 +78,7 @@ export const projects = [
    gallery:[['nesil-orijinal.png','Logo çalışması · orijinal sunum']]}
 ];
 export const logos = [
-  ...projects.map(p=>({name:p.brand,image:p.logo,category:'Referans markası',project:p.slug})),
+  ...projects.map(p=>({name:p.brand,image:p.logo,category:p.id==='08'?'Müşteri markası · mevcut logo':'Referans markası',project:p.slug})),
   {name:'Aras Restaurant',image:'aras-orijinal.png',category:'Restoran'},
   {name:'Hodip',image:'hodip-orijinal.png',category:'Logo tasarımı'},
   {name:'Horeca Vitrine',image:'horeca-vitrine-orijinal.png',category:'Logo tasarımı'},
@@ -85,6 +94,7 @@ export const career = [
  ['2014 — 2015','Satış Danışmanı','İridyum İletişim · Vodafone Bayii','Müşteri ilişkileri, ürün/hizmet satışı ve operasyon takibi.'],
  ['2014','Grafiker Yardımcısı','Erkan Matbaa','Tasarım ekibine destek; baskı, tabela ve araç giydirme uygulamalarında saha deneyimi.']
 ];
+
 
 
 

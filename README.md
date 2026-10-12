@@ -169,3 +169,5 @@ ensylmz/
 
 
 Panelde isteğe bağlı rapor alanları: Sayısal kartlar için her satır Değer | Ölçüm | Kaynak ve dönem; iki dönem tablosu için dönem başlıkları ve Ölçüm | İlk değer | İkinci değer satırları. Karşılaştırma notu, rapor açıklaması ve ek bulgular ayrı girilebilir. Yeni sürümden sonra BASLAT yeniden çalıştırılmalıdır.
+
+12 Ekim 2026: Ana sayfanın seçili işleri artık az metinli, altı projeli etkileşimli yörünge vitrini. Seminoks için ayrı proje sayfası, tasarım görselleri ve başlangıç SEO raporları eklendi. Seminoks logosu müşteri tarafından sağlanan mevcut markadır. Üretim başlıklarının girişleri korunarak yardımcı astronotlar kaldırıldı.

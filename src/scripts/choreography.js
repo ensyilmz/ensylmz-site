@@ -16,7 +16,7 @@ export function setupChoreography(actor,reduced){
  }
  let x=innerWidth-130,y=20,scene='',transition=null,launching=null,prevProject=-1,disposed=false;
  const hero=$('.hero'),projects=$('#secili-isler'),about=$('.about-teaser'),identity=$('.identity-section'),footer=$('.footer'),cards=all('#secili-isler .project-card'),tiles=all('.identity-section .logo-tile');
- const helpers=all('[data-scene=services] .service-row').map((row,i)=>{row.classList.add('push-row');row.dataset.direction=i%2?'right':'left';const helper=document.createElement('span');helper.className='astro-helper';helper.setAttribute('aria-hidden','true');const svg=actor.querySelector('svg').cloneNode(true);svg.querySelectorAll('[id]').forEach(el=>{const old=el.id,newId=`helper-${i}-${old}`;el.id=newId;svg.querySelectorAll('*').forEach(node=>{for(const attr of ['fill','stroke'])if(node.getAttribute(attr)===`url(#${old})`)node.setAttribute(attr,`url(#${newId})`);});});helper.append(svg);row.querySelector('summary').append(helper);return{row,helper,i};});
+ const helpers=all('[data-scene=services] .service-row').map((row,i)=>{row.classList.add('push-row');row.dataset.direction=i%2?'right':'left';return{row,i};});
  function setPose(p){actor.dataset.pose=p;}
  function target(t){const w=innerWidth,h=innerHeight,size=w<700?64:104,height=size*220/180;actor.style.width=size+'px';actor.style.height=height+'px';const hr=$('.site-header').getBoundingClientRect(),pr=projects.getBoundingClientRect(),ar=about.getBoundingClientRect(),ir=identity.getBoundingClientRect(),fr=footer.getBoundingClientRect();
   let key='hidden',tx=x,ty=y,pose='float',visible=false;
@@ -56,6 +56,7 @@ export function setupChoreography(actor,reduced){
  addEventListener('pageshow',()=>navigating=false);addEventListener('pagehide',e=>{if(!e.persisted)disposed=true;});
  return{tick,launch,interact:story.interact};
 }
+
 
 
 
