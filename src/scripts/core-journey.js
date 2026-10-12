@@ -19,8 +19,8 @@ export function setupCoreJourney(reduced){
   if(p<.04){copies[0].style.opacity=1;copies[0].setAttribute('aria-hidden','false');}if(p>.94){copies[4].style.opacity=1;copies[4].setAttribute('aria-hidden','false');}
   section.querySelector('.core-coordinate').textContent=String(phase+1).padStart(2,'0')+' / 05';section.querySelectorAll('.core-steps i').forEach((el,i)=>el.classList.toggle('active',i===phase));
   const mobile=width<800,finish=clamp((p-.8)/.2),base=Math.min(width*(mobile?.34:.23),height*.31),radius=base*(.78+Math.sin(p*Math.PI)*.52)*(1-finish*.58),cx=mix(width*(mobile?.5:.68),width*.81,finish),cy=mix(height*(mobile?.36:.5),height*.35,finish),ax=-.5+p*Math.PI*1.3+my,ay=.5+p*Math.PI*2.5+mx,az=p*Math.PI*.7;
-  ctx.clearRect(0,0,width,height);const space=ctx.createRadialGradient(cx,cy,0,cx,cy,width*.65);space.addColorStop(0,'rgba(255,112,73,.09)');space.addColorStop(1,'rgba(8,10,17,0)');ctx.fillStyle=space;ctx.fillRect(0,0,width,height);
-  for(const star of stars){const previous=star.z;if(!reduced.matches)star.z-=dt*(.035+Math.sin(p*Math.PI)*.16);if(star.z<.1){star.z=2;continue;}const x=width/2+star.x/star.z*width*.5,y=height/2+star.y/star.z*height*.6;ctx.strokeStyle=`rgba(237,226,214,${clamp(1.5-star.z)*.5})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(width/2+star.x/previous*width*.5,height/2+star.y/previous*height*.6);ctx.lineTo(x+1,y+1);ctx.stroke();}
+  const light=document.documentElement.dataset.theme==='light';ctx.clearRect(0,0,width,height);const space=ctx.createRadialGradient(cx,cy,0,cx,cy,width*.65);space.addColorStop(0,'rgba(255,112,73,.09)');space.addColorStop(1,'rgba(8,10,17,0)');ctx.fillStyle=space;ctx.fillRect(0,0,width,height);
+  for(const star of stars){const previous=star.z;if(!reduced.matches)star.z-=dt*(.035+Math.sin(p*Math.PI)*.16);if(star.z<.1){star.z=2;continue;}const x=width/2+star.x/star.z*width*.5,y=height/2+star.y/star.z*height*.6;ctx.strokeStyle=`rgba(${light?'58,83,110':'237,226,214'},${clamp(1.5-star.z)*.5})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(width/2+star.x/previous*width*.5,height/2+star.y/previous*height*.6);ctx.lineTo(x+1,y+1);ctx.stroke();}
   const project=v=>{const w=rotate(v,ax,ay,az),depth=3.8/(3.8-w[2]);return{x:cx+w[0]*radius*depth,y:cy+w[1]*radius*depth,z:w[2]};};
   const segments=[];for(let ring=0;ring<3;ring++){const open=Math.sin(p*Math.PI)*.24;for(let i=0;i<90;i++){const a=i/90*Math.PI*2,b=(i+1)/90*Math.PI*2;const point=n=>{const u=Math.cos(n)*(1+ring*.13),v=Math.sin(n)*(1+ring*.13);return ring===0?[u,v,open]:ring===1?[u,open,v]:[open,u,v];};const a1=project(point(a)),b1=project(point(b));segments.push({a:a1,b:b1,ring,z:(a1.z+b1.z)/2});}}
   const vertices=[[0,-.64,0],[.55,0,0],[0,0,.55],[-.55,0,0],[0,0,-.55],[0,.64,0]].map(project);const faces=[[0,1,2],[0,2,3],[0,3,4],[0,4,1],[5,2,1],[5,3,2],[5,4,3],[5,1,4]].map(ids=>({ids,z:ids.reduce((n,i)=>n+vertices[i].z,0)/3})).sort((a,b)=>a.z-b.z);
@@ -44,6 +44,7 @@ function setupProjectPortals(reduced){
    if(reduced.matches)visual.classList.add('portal-still');
   }});
 }
+
 
 
 

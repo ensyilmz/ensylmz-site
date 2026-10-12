@@ -18,3 +18,19 @@
 @media(max-width:1000px){.mission-nav{height:620px;max-height:620px}}
 @media(max-width:767px){.mission-nav{height:78px;max-height:78px;display:flex;flex-direction:row;align-items:center;overflow-x:auto;overflow-y:hidden;gap:8px;padding:6px 0;touch-action:pan-x;scrollbar-width:thin}.mission-nav button{width:145px;min-width:145px;flex:0 0 145px;min-height:53px;height:53px}.mission-nav::-webkit-scrollbar{height:3px}}
 @media(prefers-reduced-motion:reduce){.mission-nav{scroll-behavior:auto}}
+:root[data-theme=light] .mission-stage{background:radial-gradient(ellipse at 66% 45%,#ff704917,transparent 58%),linear-gradient(135deg,#eef2f7,#faf7f2 65%,#f5eae2);color:#1c2531}
+:root[data-theme=light] .mission-stage::before{background-image:radial-gradient(#45627c 1px,transparent 1px);opacity:.22}
+:root[data-theme=light] .mission-coordinate{color:#59677a}:root[data-theme=light] .mission-coordinate span,:root[data-theme=light] .mission-brand,:root[data-theme=light] .mission-count{color:#a53e21}
+:root[data-theme=light] .mission-rings i{border-color:#bf65484d}:root[data-theme=light] .mission-rings i:nth-child(2){border-color:#4f6b8738}
+:root[data-theme=light] .mission-window{border-color:#7d92a36b;box-shadow:0 30px 65px #293b5526,0 0 0 8px #47648106}
+:root[data-theme=light] .mission-caption h3{color:#192533;text-shadow:0 2px 12px #faf7f2,0 0 28px #faf7f2,0 0 50px #faf7f2}
+:root[data-theme=light] .mission-tags{color:#455264}:root[data-theme=light] .mission-tags span{border-color:#52607850}
+:root[data-theme=light] .mission-discover{color:#192533;border-color:#b74b2a}:root[data-theme=light] .mission-discover span{color:#a53e21}
+:root[data-theme=light] .mission-bottom>span:nth-child(2){color:#59677a}:root[data-theme=light] .mission-bottom button{color:#192533;border-color:#52607850;background:#ffffff50}
+:root[data-theme=light] .core-journey,:root[data-theme=light] .core-stage{background:#f3f1ec;color:#192533}
+:root[data-theme=light] .core-vignette{background:radial-gradient(ellipse at 70% 50%,transparent 25%,#f3f1ec55 75%,#f3f1ec 100%)}
+:root[data-theme=light] .core-copy h2,:root[data-theme=light] .core-top a{color:#192533}
+:root[data-theme=light] .core-copy span{color:#a53e21}:root[data-theme=light] .core-copy em{color:#b74b2a}
+:root[data-theme=light] .core-copy p,:root[data-theme=light] .core-top,:root[data-theme=light] .core-bottom{color:#566173}
+:root[data-theme=light] .core-top a{border-color:#52607850}:root[data-theme=light] .core-steps i{background:#52607840}:root[data-theme=light] .core-steps i.active{background:#b74b2a}
+:root[data-theme=light] .mission-caption::before{content:"";position:absolute;inset:-15px -20px -12px -20px;z-index:-1;background:linear-gradient(90deg,#f7f4eff0,#f7f4efd9 65%,#f7f4ef00);filter:blur(14px);pointer-events:none}
